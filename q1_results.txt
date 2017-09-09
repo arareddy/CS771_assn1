@@ -1,0 +1,5 @@
+Test accuracy for k=1 is 0.759200 for 20000 test cases
+Test accuracy for k=2 is 0.785600 for 20000 test cases
+Test accuracy for k=3 is 0.808050 for 20000 test cases
+Test accuracy for k=5 is 0.822900 for 20000 test cases
+Test accuracy for k=10 is 0.832050 for 20000 test cases
