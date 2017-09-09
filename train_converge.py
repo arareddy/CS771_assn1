@@ -42,7 +42,7 @@ def main():
     init_transform = np.eye(Xtr.shape[1])
 
     # Choose an appropriate timeout
-    lmnn.set_maxiter(2000)
+    lmnn.set_maxiter(200000)
     lmnn.train(init_transform)
 
     # Let LMNN do its magic and return a linear transformation
@@ -52,7 +52,7 @@ def main():
 
     # Save the model for use in testing phase
 	# Warning: do not change this file name
-    np.save("model.npy", M) 
+    np.save("model_converge.npy", M) 
 
 if __name__ == '__main__':
     main()
