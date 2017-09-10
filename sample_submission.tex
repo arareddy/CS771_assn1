@@ -59,7 +59,29 @@ One likelihood distribution which leads to $\mathbf{\hat{w}}_{cls}$ as the MAP e
 The likelihood part of the estimate is same as the previous question, therefore one likelihood distribution is  the gaussian distribution with mean as $\langle \mathbf{w,x}^i \rangle$ \[
 \mathbb{P}[y|\mathbf{x}^i,w] = \mathcal{N}(\langle \mathbf{w,x}^i \rangle,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \text{exp}\bigg(-\frac{(y-\langle \mathbf{w,x}^i \rangle)^2}{2\sigma^2}\bigg)
 \]
+For the prior, we can take a multivariate gaussian distribution with mean at $\mathbf{0}$\[
+\mathbb{P}[\mathbf{w}] = \mathcal{N}(\mathbf{w};\mathbf{0},\Sigma) = \frac{1}{\sqrt{(2\pi)^d |\Sigma|}} \text{exp}\bigg(-\frac{1}{2}\mathbf{w}^T\Sigma^{-1}\mathbf{w}\bigg)
+\]
+Here $\Sigma = \sigma^2
+\begin{bmatrix} 
+\frac{1}{\alpha_1} & 0 & \dots & \dots & 0
+\\ 0 & \frac{1}{\alpha_2} & 0 & \dots & 0
+\\ \vdots & 0 & \ddots & 0\dots & 0
+\\ \vdots & \vdots & \vdots & \frac{1}{\alpha_{d-1}} & 0
+\\ 0 & 0 & 0 & 0 & \frac{1}{\alpha_d}
+\end{bmatrix}$ i.e a diagonal matrix with it's $i$'th diagonal entry as $\frac{\sigma^2}{\alpha_i}$ where $\sigma^2$ is the variance of the likelihood distribution.\[
+\text{log }\mathbb{P}[\mathbf{w|X,y}] = C -\frac{1}{2\sigma^2}\sum_{i=1}^{n}(y^i-\langle \mathbf{w,x}^i \rangle)^2 -\frac{1}{2\sigma^2}\sum_{j=1}^{d} \alpha_j \mathbf{w}_j^2 \]
+\[ \implies \mathbf{\hat{w}}_{\text{MAP}} = \text{arg min} \sum_{i=1}^{n}(y^i-\langle \mathbf{w,x}^i \rangle)^2 + \sum_{j=1}^{d} \alpha_j \mathbf{w}_j^2   \]
 
+\section*{Closed form expression:}
+We need to minimise \[ \mathcal{L} =  \sum_{i=1}^{n}(y^i-\langle \mathbf{w,x}^i \rangle)^2 + \sum_{j=1}^{d} \alpha_j \mathbf{w}_j^2   \]
+ \[ \mathcal{L} =  ||\mathbf{Xw - Y}||^2 + \sum_{j=1}^{d} \alpha_j \mathbf{w}_j^2   \]
+ \[ \nabla_w \mathcal{L} = 2\mathbf{X}^T(\mathbf{Xw - Y}) + 2\mathbf{D_{\alpha}w} \text{ where } D_{\alpha} \text{ is the diagonal matrix with entries } \alpha_1,\alpha_2 \dots \alpha_d \]
+ \[ \nabla_w \mathcal{L} = 2((\mathbf{X^T X + D_{\alpha})w} -\mathbf{X^T Y})\]
+ \[\nabla_w \mathcal{L}= 0  \]
+ \[ \iff (\mathbf{X^T X + D_{\alpha})w} -\mathbf{X^T Y} = 0 \]
+ \[ \iff (\mathbf{X^T X + D_{\alpha})w}  = \mathbf{X^T Y} \]
+ \[ \iff w = \mathbf{(X^T X + D_{\alpha})^{-1} X^T Y} \]
 \end{mlsolution}
 
 \begin{mlsolution}
