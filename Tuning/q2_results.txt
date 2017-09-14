@@ -1,20 +1,20 @@
-Test accuracy for k=1 is 0.763100 for 10000 test cases
-Test accuracy for k=2 is 0.784200 for 10000 test cases
-Test accuracy for k=3 is 0.806000 for 10000 test cases
-Test accuracy for k=4 is 0.811900 for 10000 test cases
-Test accuracy for k=5 is 0.818300 for 10000 test cases
-Test accuracy for k=6 is 0.820800 for 10000 test cases
-Test accuracy for k=7 is 0.822400 for 10000 test cases
-Test accuracy for k=8 is 0.822200 for 10000 test cases
-Test accuracy for k=9 is 0.824400 for 10000 test cases
-Test accuracy for k=10 is 0.826300 for 10000 test cases
-Test accuracy for k=11 is 0.825500 for 10000 test cases
-Test accuracy for k=12 is 0.825200 for 10000 test cases
-Test accuracy for k=13 is 0.825800 for 10000 test cases
-Test accuracy for k=14 is 0.826400 for 10000 test cases
-Test accuracy for k=15 is 0.826200 for 10000 test cases
-Test accuracy for k=16 is 0.827200 for 10000 test cases
-Test accuracy for k=17 is 0.826800 for 10000 test cases
-Test accuracy for k=18 is 0.825700 for 10000 test cases
-Test accuracy for k=19 is 0.826500 for 10000 test cases
-Test accuracy for k=20 is 0.825200 for 10000 test cases
+1 0.763100
+2 0.784200
+3 0.806000
+4 0.811900
+5 0.818300
+6 0.820800
+7 0.822400
+8 0.822200
+9 0.824400
+10 0.826300
+11 0.825500
+12 0.825200
+13 0.825800
+14 0.826400
+15 0.826200
+16 0.827200
+17 0.826800
+18 0.825700
+19 0.826500
+20 0.825200

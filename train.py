@@ -14,10 +14,14 @@ def main():
     Xtr = tr_data[0].toarray(); # Converts sparse matrices to dense
     Ytr = tr_data[1]; # The trainig labels
 
-    np.random.shuffle(Xtr);
-    Xtr = Xtr[:6000]
-    np.random.shuffle(Ytr);
-    Ytr = Ytr[:6000]
+    Indices_array = np.arange(Ytr.shape[0]);
+    np.random.shuffle(Indices_array);
+
+    Xtr = Xtr[Indices_array];
+    Xtr = Xtr[:6000];
+
+    Ytr = Ytr[Indices_array];
+    Ytr = Ytr[:6000];
     
    # new_matrix = np.zeros((60000,101));
    # new_matrix[:,0] = Ytr;
@@ -42,7 +46,7 @@ def main():
     init_transform = np.eye(Xtr.shape[1])
 
     # Choose an appropriate timeout
-    lmnn.set_maxiter(2000)
+    lmnn.set_maxiter(200000)
     lmnn.train(init_transform)
 
     # Let LMNN do its magic and return a linear transformation

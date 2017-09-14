@@ -85,9 +85,120 @@ We need to minimise \[ \mathcal{L} =  \sum_{i=1}^{n}(y^i-\langle \mathbf{w,x}^i 
 \end{mlsolution}
 
 \begin{mlsolution}
- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis feugiat vehicula dolor, sed ultricies leo. Phasellus euismod dictum felis in euismod. Proin pretium vel neque in placerat. Proin imperdiet egestas vulputate. Etiam faucibus accumsan ante non viverra. Duis ultrices ac odio vel sodales. In maximus gravida dolor, ut commodo lacus. Pellentesque ante massa, venenatis id aliquam et, posuere sed dui. Duis dignissim justo sit amet augue posuere fringilla. Suspendisse at nisi gravida, mattis justo sit amet, elementum elit. Praesent et massa ornare, consequat dui eget, ornare risus. Duis est nibh, sollicitudin nec mattis non, mattis in leo. Donec finibus justo sed massa sagittis, non fermentum nibh dictum. Pellentesque et congue purus. Donec porta pretium porttitor.
 
-Morbi euismod risus eu tortor ornare malesuada. Nunc sed sollicitudin neque, efficitur rhoncus tellus. Cras malesuada augue arcu. Sed sem odio, tincidunt quis laoreet ac, facilisis ut nibh. Quisque gravida dolor at egestas aliquam. Aenean mollis massa sit amet enim mattis, vel fermentum tortor facilisis. Donec pellentesque est velit, vitae posuere lorem tristique ut. 
+\end{mlsolution}
+
+\begin{mlsolution}
+To prove: $\forall \mathbf{w'} \in \mathbb{R}^d, f(\mathbf{w'}) \geq f(\mathbf{w}) + \ip{\mathbf{g}}{\mathbf{w'-w}}$
+\[
+	f(\mathbf{w}) = \sum_{i=1}^{n}[1 - y^i \ip{\mathbf{w}}{\mathbf{x}^i}]_{+}
+\]
+where
+\[
+	[1 - y^i \ip{\mathbf{w}}{\mathbf{x}^i}]_{+} = 
+     \begin{cases}
+       1 - y^i \ip{\mathbf{w}}{\mathbf{x}^i} &\quad\text{if }y^i \ip{\mathbf{w}}{\mathbf{x}^i} < 1\\
+       0 &\quad\text{if }y^i \ip{\mathbf{w}}{\mathbf{x}^i} \geq 1\\
+     \end{cases}
+\]
+
+The given vector $\mathbf{g}$ is defined as $\mathbf{g} = \sum_{i=1}^{n}\mathbf{h}^i$ where 
+\[
+	\mathbf{h}^i = 
+     \begin{cases}
+      -y^i . \mathbf{x}^i  &\quad\text{if }y^i \ip{\mathbf{w}}{\mathbf{x}^i} < 1\\
+       \mathbf{0}                          &\quad\text{if }y^i \ip{\mathbf{w}}{\mathbf{x}^i} \geq 1\\
+     \end{cases}
+\]
+\[ f(\mathbf{w}) + \ip{\mathbf{g}}{\mathbf{w'-w}} = \sum_{i=1}^{n}[1 - y^i \ip{\mathbf{w}}{\mathbf{x}^i}]_{+} + \ip{\sum_{i=1}^{n}\mathbf{h}^i}{\mathbf{w'-w}} \]
+\[ \implies f(\mathbf{w}) + \ip{\mathbf{g}}{\mathbf{w'-w}} = \sum_{i=1}^{n}[1 - y^i \ip{\mathbf{w}}{\mathbf{x}^i}]_{+} + \sum_{i=1}^{n}\ip{\mathbf{h}^i}{\mathbf{w'-w}} \]
+\[ \implies f(\mathbf{w}) + \ip{\mathbf{g}}{\mathbf{w'-w}} = \sum_{i=1}^{n}\big([1 - y^i \ip{\mathbf{w}}{\mathbf{x}^i}]_{+} +\ip{\mathbf{h}^i}{\mathbf{w'-w}}\big) \]
+
+For one value of $i$, we get four cases:
+\\\underline{Case 1}: $y^i \ip{\mathbf{w}}{\mathbf{x}^i} < 1$, $y^i \ip{\mathbf{w'}}{\mathbf{x}^i} < 1$
+\\In this case, the $i$'th term of $f(\mathbf{w}) + \ip{\mathbf{g}}{\mathbf{w'-w}}$ summation will be
+\\ $1 - y^i \ip{\mathbf{w}}{\mathbf{x}^i} + \ip{\mathbf{h}^i}{\mathbf{w'-w}}  $
+\\ $ = 1 - y^i \ip{\mathbf{w}}{\mathbf{x}^i} + \ip{-y^i . \mathbf{x}^i }{\mathbf{w'-w}}  $
+\\ $ = 1 - y^i \ip{\mathbf{w}}{\mathbf{x}^i} +( -y^i) . \ip{\mathbf{x}^i }{\mathbf{w'-w}}  $
+\\ $ = 1 - y^i \ip{\mathbf{w}}{\mathbf{x}^i} + (-y^i) . \ip{\mathbf{w'-w}}{\mathbf{x}^i}  $
+\\ $ = 1 - y^i\big( \ip{\mathbf{w}}{\mathbf{x}^i} + \ip{\mathbf{w'-w}}{\mathbf{x}^i}\big)  $
+\\ $ = 1 - y^i\ip{\mathbf{w+w'-w}}{\mathbf{x}^i}$
+\\ $ = 1 - y^i\ip{\mathbf{w'}}{\mathbf{x}^i} $
+\\This is the same as the $i$'th term of $f(\mathbf{w'})$ summation.\newline\newline
+\underline{Case 2}: $y^i \ip{\mathbf{w}}{\mathbf{x}^i} < 1$, $y^i \ip{\mathbf{w'}}{\mathbf{x}^i} \geq 1$
+\\In this case, the $i$'th term of $f(\mathbf{w}) + \ip{\mathbf{g}}{\mathbf{w'-w}}$ summation will be
+\\ $1 - y^i \ip{\mathbf{w}}{\mathbf{x}^i} + \ip{\mathbf{h}^i}{\mathbf{w'-w}}  $
+\\ $ = 1 - y^i \ip{\mathbf{w}}{\mathbf{x}^i} + \ip{-y^i . \mathbf{x}^i }{\mathbf{w'-w}}  $
+\\ $ = 1 - y^i\ip{\mathbf{w'}}{\mathbf{x}^i} $
+\\This is the same as the $i$'th term of $f(\mathbf{w'})$ summation.\newline\newline
+\underline{Case 3}: $y^i \ip{\mathbf{w}}{\mathbf{x}^i} \geq 1$, $y^i \ip{\mathbf{w'}}{\mathbf{x}^i} < 1$
+\\In this case, the $i$'th term of $f(\mathbf{w}) + \ip{\mathbf{g}}{\mathbf{w'-w}}$ summation will be
+\\ $0 + \ip{\mathbf{0}}{\mathbf{w'-w}}  $
+\\ $ = 0$
+\\This is the less than the $i$'th term of $f(\mathbf{w'})$ summation i.e $1 - y^i \ip{\mathbf{w'}}{\mathbf{x}^i}$ .\newline\newline
+\underline{Case 4}: $y^i \ip{\mathbf{w}}{\mathbf{x}^i} \geq 1$, $y^i \ip{\mathbf{w'}}{\mathbf{x}^i} \geq 1$
+\\In this case, the $i$'th term of $f(\mathbf{w}) + \ip{\mathbf{g}}{\mathbf{w'-w}}$ summation will be
+\\ $0 + \ip{\mathbf{0}}{\mathbf{w'-w}}  $
+\\ $ = 0$
+\\This is the same as the $i$'th term of $f(\mathbf{w'})$ summation.
+\\ Thus in 3 of the 4 cases, the terms on LHS and RHS are equal.
+\\ For the case 3, LHS is strictly greater than RHS.
+\\Therefore, $\forall \mathbf{w'} \in \mathbb{R}^d, f(\mathbf{w'}) \geq f(\mathbf{w}) + \ip{\mathbf{g}}{\mathbf{w'-w}}$
+
+
+
+\end{mlsolution}
+
+
+
+\begin{mlsolution}
+\section*{Part 1}
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ $k$ & Test Error(\#points) \\ \hline
+ 1 & 4816 \\ 
+ 2 & 4288 \\
+ 3 & 3839 \\
+ 5 & 3542 \\
+ 10 & 3359 \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{figure}[th]%
+\centering
+\includegraphics[scale = 0.5]{q61_plot.png}%
+\label{fig:proto}%
+\end{figure}
+
+For lower values of $k$, the model overfits the training data. Therefore, due to the noise in the training data, the model has lesser accuracy for smaller values of $k$.
+
+\section*{Part 2}
+I used holdout validation for tuning the value of the hyperparameter $k$. I did a random shuffle of the given data of 60K points and took the first 50K points as the training set and the next 10K points as the validation set. We can see from the graph that there is not much change between the values from k=10 to k=20. Therefore, I took the value of k=10 for faster computation although k=16(the maxima) gives slightly better performance.
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+ \hline
+ $k$ & Accuracy & $k$ & Accuracy & $k$ & Accuracy & $k$ & Accuracy\\ \hline
+ 1 & 0.7631 & 2 & 0.7842 & 3 & 0.8060 & 4 & 0.8119 \\ 
+ 5 & 0.8183 & 6 & 0.8208 & 7 & 0.8224 & 8 & 0.8222 \\
+ 9 & 0.8244 & 10 & 0.8263 & 11 & 0.8255 & 12 & 0.8252 \\
+ 13 & 0.8258 & 14 & 0.8264 & 15 & 0.8262 & 16 & 0.8272\\
+ 17 & 0.8268 & 18 & 0.8257 & 19 & 0.8265 & 20 & 0.8252 \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{figure}[th]%
+\centering
+\includegraphics[scale = 0.5]{q62_plot.png}%
+\label{fig:proto}%
+\end{figure}
+
+\section*{Part 3}
+For the training of the LMNN model, I took 6K test points which were randomly selected from the given training set. I set the maxiter to 200,000. My model converged before the value reached 200,000. I got a test accuracy of 83.045\% for my model and with k=10 when I ran it on all the given 20K test points.
+
 \end{mlsolution}
 					
 \end{document}

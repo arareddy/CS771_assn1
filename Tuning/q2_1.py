@@ -7,9 +7,20 @@ training_data_size = 50000;
 test_data_size = 10000; #validation data
 
 # The training file is in libSVM format
-total_data = np.load("shuffled_training_data.npy");
+total_data = load_svmlight_file("train.dat");
 
-tr_data = total_data[:50000,0:]
+Xto = total_data[0].toarray(); # Converts sparse matrices to dense
+Yto = total_data[1]; # The training labels, these are either 1,2 or 3
+
+total_data_matrix = np.zeros((60000,101));
+total_data_matrix[:,0] = Yto;
+total_data_matrix[:,1:] = Xto;
+
+np.random.shuffle(total_data_matrix);
+
+#total_data = np.load("shuffled_training_data.npy");
+
+tr_data = total_data_matrix[:50000,0:]
 
 Xtr = tr_data[:,1:]; 
 Ytr = tr_data[:,0]; # The training labels, these are either 1,2 or 3
@@ -20,9 +31,7 @@ Xtest = test_data[:,1:]; #Coordinates of the test data
 Ytest = test_data[:,0]; # The test labels
 
 # Number of target neighbours per example - tune this using validation
-k_list = [1,5,10,16,20];
-
-for k in k_list:
+for k in range(1,21):
     
     Predicted_labels = Ytest - 4; #Uncomputed Predicted_labels are negative
     Test_accuracy = 0;
@@ -47,7 +56,7 @@ for k in k_list:
     Success_cases = np.sum(Predicted_labels==Ytest); 
     Test_accuracy = Success_cases/test_data_size;
 
-    with open("q2_results.txt", "a") as myfile:
-        myfile.write("Test accuracy for k=%d is %f for %d test cases\n" % (k,Test_accuracy, test_data_size));
+    with open("tuning_results.txt", "a") as myfile:
+        myfile.write("%d %f\n" % (k,Test_accuracy));
     print(Success_cases);
     #np.savetxt("labels_k10",Predicted_labels);

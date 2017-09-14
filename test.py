@@ -14,10 +14,21 @@ def predict(Xtr, Ytr, Xts, metric=None):
 
     Yts = np.zeros((Xts.shape[0], 1))
 
+    k = 10; #Value of k by tuning
+    Mahalanobis_norm = np.zeros(Xtr.shape[0]); # This matrix stores the Mahalanobis norm for the difference between one test point and all training points.
+    indices_closest = np.zeros(k); # This vector stores the indices of the k nearest neighbours in the training data.
+    vote = np.zeros(3); #This function is used for finding majority label among the k-nearest neighbours.
+    
     for i in range(Xts.shape[0]):
-        '''
-        Predict labels for test data using k-NN. Specify your tuned value of k here
-        '''
+   # for i in range(100):
+        Diff = Xtr - Xts[i]; #By broadcasting, we get a matrix in which every row is row-i'th training point
+        Mah_temp = np.matmul(metric,Diff.T);
+        Mahalanobis_norm = np.sum(np.multiply(Diff.T,Mah_temp),axis=0); # Vector consisting of Mahalanobis metric for the one test point and all the training points.
+        indices_closest = np.argpartition(Mahalanobis_norm, k)[:k];   
+        for j in range(0,k): 
+            vote[int(Ytr[indices_closest[j]])-1]+=1 # -1 is required because the labels are 1,2,3 and not 0,1,2
+        Yts[i] = np.argmax(vote)+1;
+        vote = np.zeros(3); #Reset for the next test point
 
     return Yts
 
@@ -40,7 +51,7 @@ def main():
     # The test labels are useless for prediction. They are only used for evaluation
 
     # Load the learned metric
-    metric = np.load("model.npy")
+    metric = np.load("itml_model.npy")
 
     ### Do soemthing (if required) ###
 
