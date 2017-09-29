@@ -85,7 +85,35 @@ We need to minimise \[ \mathcal{L} =  \sum_{i=1}^{n}(y^i-\langle \mathbf{w,x}^i 
 \end{mlsolution}
 
 \begin{mlsolution}
+The constraints for $(P1)$ can be re-written as 
+\[ \xi_i  \geq 1 + \ip{\mathbf{w}^{k}}{\mathbf{x}^i} - \ip{\mathbf{w}^{y^i}}{\mathbf{x}^i}, \forall k \neq y^i \text{ and } \xi_i \geq 0 \forall i \]
+\[\implies \xi_i  \geq 1 + \max_{k \neq y^i} \ip{\mathbf{w}^{k}}{\mathbf{x}^i} - \ip{\mathbf{w}^{y^i}}{\mathbf{x}^i} \text{ and } \xi_i \geq 0 \forall i\]
+\[\implies \xi_i  \geq 1 + \max_{k \neq y}\veta^i_k - \veta^i_y \text{ and } \xi_i \geq 0 \forall i \]
+\[\implies \xi_i \geq [1 + \max_{k \neq y}\veta^i_k - \veta^i_y]_+ \]
+\[\implies \xi_i \geq \ell_\text{cs}(y^i,\veta^i) \]
+Therefore, for a fixed value of $\mathbf{W}$, if we want to minimise the given function in $(P1)$, we have to set $\xi_i = \ell_\text{cs}(y^i,\veta^i)$ for every $i$ to satisfy the given constraint.
+\\For optimum $\bc{\vW, \{\xi_i\}},\text{we have } \xi_i = \ell_\text{cs}(y^i,\veta^i) \forall i$\newline
 
+\subsection*{Part 1}
+$\bc{\vW^0, \{\xi^0_i\}}$ is an optimum for $(P_1)$
+\\ $\implies \text{For any other} \bc{\vW^2, \{\xi^2_i\}} \text{, we have }$ 
+\[ \Bigg(\sum_{k=1}^K\norm{\vw^k_2}_2^2 + \sum_{i=1}^n\xi^2_i\Bigg) - \Bigg(\sum_{k=1}^K\norm{\vw^k_0}_2^2 + \sum_{i=1}^n\xi^0_i\Bigg) \geq 0 \text{ where $\xi_i$ are subject to the given constraints} \]
+\[ \implies \Bigg(\sum_{k=1}^K\norm{\vw^k_2}_2^2 + \sum_{i=1}^n\xi^2_i\Bigg) - \Bigg(\sum_{k=1}^K\norm{\vw^k_0}_2^2 + \sum_{i=1}^n\ell_\text{cs}(y^i,\veta^i)_{\vW_0}  \Bigg) \geq 0 \text{ since } \xi_i^0 = \ell_\text{cs}(y^i,\veta^i)_{\vW_0}\]
+\[ \implies \Bigg(\sum_{k=1}^K\norm{\vw^k_2}_2^2 + \sum_{i=1}^n\ell_\text{cs}(y^i,\veta^i)_{\vW_2} \Bigg) - \Bigg(\sum_{k=1}^K\norm{\vw^k_0}_2^2 + \sum_{i=1}^n\ell_\text{cs}(y^i,\veta^i)_{\vW_0} \Bigg) \geq 0\]
+\[ \text{ since } \bc{\xi^2_i} = \bc{\ell_\text{cs}(y^i,\veta^i)_{\vW_2}} \text{ is also a valid value in the inequality before this.} \]
+\[\implies \vW^0 \text{ is an optimum for } (P2)\]
+\newpage
+\subsection*{Part 2}
+$\bc{\vW^1}$ is an optimum for $(P_2)$. 
+\iffalse We show that $\bc{\xi^1_i} = \bc{\ell_\text{cs}(y^i,\veta^i)_{\vW_1}} $ satisfies the conditions that $\bc{\xi^1_i} \geq 0$ and $\bc{\vW^1, \{\xi^1_i\}}$ is an optimum for $(P_1)$. \fi
+\\ $\implies \text{For any other} \bc{\vW^2} \text{, we have }$
+\[ \implies \Bigg(\sum_{k=1}^K\norm{\vw^k_2}_2^2 + \sum_{i=1}^n\ell_\text{cs}(y^i,\veta^i)_{\vW_2} \Bigg) - \Bigg(\sum_{k=1}^K\norm{\vw^k_1}_2^2 + \sum_{i=1}^n\ell_\text{cs}(y^i,\veta^i)_{\vW_1} \Bigg) \geq 0\]
+We have shown earlier that
+\[ \Bigg(\sum_{k=1}^K\norm{\vw^k_2}_2^2 + \sum_{i=1}^n\xi^2_i\Bigg) \geq \Bigg(\sum_{k=1}^K\norm{\vw^k_2}_2^2 + \sum_{i=1}^n\ell_\text{cs}(y^i,\veta^i)_{\vW_2} \Bigg) \text{} \]
+\\where $\xi_i$ are subject to the given constraints.
+\[\therefore \Bigg(\sum_{k=1}^K\norm{\vw^k_2}_2^2 + \sum_{i=1}^n\xi^2_i\Bigg) - \Bigg(\sum_{k=1}^K\norm{\vw^k_1}_2^2 + \sum_{i=1}^n\ell_\text{cs}(y^i,\veta^i)_{\vW_1} \Bigg) \geq 0  \]
+\[\implies \Bigg(\sum_{k=1}^K\norm{\vw^k_2}_2^2 + \sum_{i=1}^n\xi^2_i\Bigg) - \Bigg(\sum_{k=1}^K\norm{\vw^k_1}_2^2 + \sum_{i=1}^n\xi^1_i \Bigg) \geq 0 \text{ where } \bc{\xi^1_i} = \bc{\ell_\text{cs}(y^i,\veta^i)_{\vW_1}} \geq 0  \]
+\[\implies \exists \bc{\xi^1_i} \geq 0 \text{ such that } \bc{\vW^1, \{\xi^1_i\}} \text{ is an optimum for } (P_1) \]
 \end{mlsolution}
 
 \begin{mlsolution}
@@ -175,7 +203,7 @@ For one value of $i$, we get four cases:
 For lower values of $k$, the model overfits the training data. Therefore, due to the noise in the training data, the model has lesser accuracy for smaller values of $k$.
 
 \section*{Part 2}
-I used holdout validation for tuning the value of the hyperparameter $k$. I did a random shuffle of the given data of 60K points and took the first 50K points as the training set and the next 10K points as the validation set. We can see from the graph that there is not much change between the values from k=10 to k=20. Therefore, I took the value of k=10 for faster computation although k=16(the maxima) gives slightly better performance.
+I used holdout validation for tuning the value of the hyperparameter $k$. I took 50K random points from the given training data as the training set and the remaining 10K points as the validation set. We can see from the graph that there is not much change between the values from k=10 to k=20. Therefore, I took the value of k=10 for faster computation although k=16(the maxima) gives slightly better performance.
 
 \begin{center}
 \begin{tabular}{ |c|c|c|c|c|c|c|c| } 
@@ -197,7 +225,12 @@ I used holdout validation for tuning the value of the hyperparameter $k$. I did 
 \end{figure}
 
 \section*{Part 3}
-For the training of the LMNN model, I took 6K test points which were randomly selected from the given training set. I set the maxiter to 200,000. My model converged before the value reached 200,000. I got a test accuracy of 83.045\% for my model and with k=10 when I ran it on all the given 20K test points.
+For the training of the LMNN model, I took 6K test points which were randomly selected from the given training set. I set the maxiter to 200,000. My model converged before the value reached 200,000. 
+\\I got a test accuracy of 83.585\% for my metric with k=10 when I ran it on all the given 20K test points with training data as all the 60K points. Thus, we can see that we get better performance with the metric when compared to normal KNN(accuracy for normal k-NN with k=10 for the entire training set is 83.205\% according to part 1).
+
+\section*{Extra credit}
+I trained my ITML metric by giving it 6K random points from the train.dat set
+\\I got an accuracy of 82.68\% by using this learned metric on the 60K training points with 20K test points.
 
 \end{mlsolution}
 					

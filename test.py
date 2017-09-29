@@ -51,7 +51,7 @@ def main():
     # The test labels are useless for prediction. They are only used for evaluation
 
     # Load the learned metric
-    metric = np.load("itml_model.npy")
+    metric = np.load("model.npy")
 
     ### Do soemthing (if required) ###
 
